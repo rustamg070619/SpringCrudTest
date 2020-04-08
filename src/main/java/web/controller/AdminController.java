@@ -11,7 +11,7 @@ import web.service.UserService;
 import java.util.List;
 
 @Controller
-public class UserController {
+public class AdminController {
     private UserService userService;
 
     @Autowired
@@ -19,13 +19,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView allUsers() {
         List<User> allUsers = userService.allUsers();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("users");
+        modelAndView.setViewName("Admin");
         modelAndView.addObject("userList", allUsers);
         return modelAndView;
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage() {
+        return "login";
+    }
+
 
 }

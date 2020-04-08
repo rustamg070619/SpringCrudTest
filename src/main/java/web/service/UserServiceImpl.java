@@ -1,6 +1,8 @@
 package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
@@ -46,5 +48,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Long id) {
         return userDao.getById(id);
+    }
+
+    @Transactional
+    @Override
+    public User getUserByLogin(String login) {
+        try {
+            return userDao.getUserByLogin(login);
+        } catch (Exception e) {
+            throw new UsernameNotFoundException("User not found");
+        }
+    }
+
+    @Transactional
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        User user = null;
+        try {
+            user = userDao.getUserByLogin(login);
+        } catch (Exception e) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return user;
     }
 }

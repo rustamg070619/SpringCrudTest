@@ -11,10 +11,10 @@
 </head>
 <body align="center">
 <c:if test="${empty user.login}">
-    <c:url value="/add" var="var"/>
+    <c:url value="/admin/add" var="var"/>
 </c:if>
 <c:if test="${!empty user.login}">
-    <c:url value="/edit" var="var"/>
+    <c:url value="/admin/edit" var="var"/>
 </c:if>
 <form action="${var}" method="POST">
     <c:if test="${!empty user.login}">
@@ -24,12 +24,16 @@
     <input type="text" name="Login" id="Login" value="${user.login}">
     <label for="Password">Password</label>
     <input type="text" name="Password" id="Password" value="${user.password}">
+    <label for="Role">Role</label>
+    <input type="text" name="Role" id="Role" value="${user.roles}">
     <c:if test="${empty user.login}">
         <input type="submit" value="Add new user">
     </c:if>
     <c:if test="${!empty user.login}">
         <input type="submit" value="Edit user">
     </c:if>
+
+    <h4><a href="<c:url value="/logout"/>">Exit</a></h4>
 </form>
 </body>
 </html>

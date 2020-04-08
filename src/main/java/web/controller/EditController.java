@@ -19,7 +19,7 @@ public class EditController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editPage(@PathVariable("id") Long id) {
         User user = userService.getById(id);
         ModelAndView modelAndView = new ModelAndView();
@@ -28,10 +28,10 @@ public class EditController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/edit", method = RequestMethod.POST)
     public ModelAndView editUser(@ModelAttribute("user") User user) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("redirect:/admin");
         userService.edit(user);
         return modelAndView;
     }

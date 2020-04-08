@@ -3,8 +3,10 @@ package web.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import web.model.User;
+
 import java.util.List;
 
 @Repository
@@ -40,5 +42,14 @@ public class UserDaoImpl implements UserDao {
     public User getById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(User.class, id);
+    }
+
+    @Override
+    public User getUserByLogin(String login) throws IndexOutOfBoundsException {
+        Session session = sessionFactory.getCurrentSession();
+        User user = (User) session.createQuery("from User WHERE login= :loginParam")
+                .setParameter("loginParam", login).list().get(0);
+        return user;
+
     }
 }

@@ -10,4 +10,5 @@ public interface UserDao {
     void delete(User user);
     void edit(User user);
     User getById(Long id);
+    User getUserByLogin(String login) throws Exception;
 }

@@ -19,10 +19,10 @@ public class DeleteController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteUser(@PathVariable("id") Long id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("redirect:/admin");
         User user = userService.getById(id);
         userService.delete(user);
         return modelAndView;
